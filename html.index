@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViralCut AI Tools - Transform Videos with AI</title>
+    <meta name="description" content="Transform, translate, and animate videos instantly with AI. Auto-generate captions, translations, animations, and viral shorts.">
+    <meta name="keywords" content="video translator, caption generator, animation converter, shorts creator, AI video tools">
+    <meta property="og:title" content="ViralCut AI Tools">
+    <meta property="og:description" content="Transform videos with AI-powered tools">
+    <meta property="og:image" content="/images/og-image.jpg">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="/images/logo.svg" alt="ViralCut Logo" class="logo">
+                <span class="brand-name">ViralCut AI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link active">Home</a></li>
+                <li><a href="#tools" class="nav-link">Tools</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="themeToggle" class="theme-btn">🌙</button>
+                <button id="loginBtn" class="btn-secondary">Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Transform, Translate, and Animate Videos Instantly with AI</h1>
+                <p class="hero-subtitle">Upload any video and let AI automatically generate captions, translations, animations, and viral Shorts.</p>
+                
+                <div class="hero-upload-zone" id="heroUploadZone">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p class="upload-text">Drag & drop your video or <span class="upload-link">click to browse</span></p>
+                    <input type="file" id="heroVideoInput" accept="video/*" hidden>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card card-1">Video Translator</div>
+                <div class="floating-card card-2">Caption Generator</div>
+                <div class="floating-card card-3">Animation Converter</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Tools Section -->
+    <section class="tools-section" id="tools">
+        <div class="container">
+            <h2 class="section-title">Our AI-Powered Tools</h2>
+            <div class="tools-grid">
+                
+                <!-- Video Translator -->
+                <div class="tool-card">
+                    <div class="tool-icon">🌍</div>
+                    <h3>Video Translator</h3>
+                    <p>Translate audio and subtitles to 50+ languages in seconds</p>
+                    <ul class="tool-features">
+                        <li>✓ Multi-language support</li>
+                        <li>✓ Natural voice synthesis</li>
+                        <li>✓ Lip-sync technology</li>
+                    </ul>
+                    <a href="/video-translator" class="btn-primary">Try Now</a>
+                </div>
+
+                <!-- Auto Caption Generator -->
+                <div class="tool-card">
+                    <div class="tool-icon">📝</div>
+                    <h3>Auto Caption Generator</h3>
+                    <p>Generate accurate subtitles automatically with AI</p>
+                    <ul class="tool-features">
+                        <li>✓ Automatic transcription</li>
+                        <li>✓ Multiple formats (SRT, VTT)</li>
+                        <li>✓ Custom styling</li>
+                    </ul>
+                    <a href="/auto-caption-generator" class="btn-primary">Try Now</a>
+                </div>
+
+                <!-- Video to Animation -->
+                <div class="tool-card">
+                    <div class="tool-icon">🎨</div>
+                    <h3>Video to Animation</h3>
+                    <p>Convert any video into stunning animated/cartoon style</p>
+                    <ul class="tool-features">
+                        <li>✓ Multiple art styles</li>
+                        <li>✓ High quality output</li>
+                        <li>✓ Fast processing</li>
+                    </ul>
+                    <a href="/video-to-animation" class="btn-primary">Try Now</a>
+                </div>
+
+                <!-- Long Video to Shorts -->
+                <div class="tool-card">
+                    <div class="tool-icon">🎬</div>
+                    <h3>Long Video → Shorts</h3>
+                    <p>Auto-detect highlights and create viral shorts instantly</p>
+                    <ul class="tool-features">
+                        <li>✓ Highlight detection</li>
+                        <li>✓ 9:16 format optimization</li>
+                        <li>✓ Batch processing</li>
+                    </ul>
+                    <a href="/video-to-shorts" class="btn-primary">Try Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose ViralCut AI?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-number">⚡</div>
+                    <h4>Lightning Fast</h4>
+                    <p>Process videos in seconds, not hours</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-number">🔒</div>
+                    <h4>Secure & Private</h4>
+                    <p>Your videos are encrypted and deleted after processing</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-number">🎯</div>
+                    <h4>AI-Powered</h4>
+                    <p>Latest AI models for best quality output</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-number">📱</div>
+                    <h4>Mobile Friendly</h4>
+                    <p>Works seamlessly on all devices</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Start Creating Amazing Content Today</h2>
+            <p>Join thousands of creators using ViralCut AI</p>
+            <button class="btn-large" onclick="scrollToTools()">Explore Tools</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>ViralCut AI</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="/video-translator">Translator</a></li>
+                        <li><a href="/auto-caption-generator">Caption Generator</a></li>
+                        <li><a href="/video-to-animation">Animation</a></li>
+                        <li><a href="/video-to-shorts">Shorts Creator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/cookies">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ViralCut AI Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

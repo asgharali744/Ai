@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoCaptionPro - Auto Caption Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .upload-section {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .preview-section {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .drop-zone {
+            border: 3px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .drop-zone:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .drop-zone i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+        
+        .drop-zone p {
+            margin: 10px 0;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #fdbb2d, #b21f1f);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:disabled {
+            background: linear-gradient(45deg, #555, #777);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .video-preview {
+            width: 100%;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .video-preview video {
+            width: 100%;
+            display: block;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(45deg, #1a2a6c, #fdbb2d);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        
+        .caption-result {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .caption-text {
+            line-height: 1.6;
+        }
+        
+        .language-selector {
+            margin: 20px 0;
+        }
+        
+        .language-selector select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .language-selector select option {
+            background: #1a2a6c;
+            color: white;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 50px;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #fdbb2d;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>VideoCaptionPro</h1>
+            <p>Transform long videos into short, captioned clips with multi-language support</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="upload-section">
+                <h2 class="section-title">Upload Video</h2>
+                <div class="drop-zone" id="dropZone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Drag & Drop Your Video</h3>
+                    <p>or</p>
+                    <button class="btn" id="browseBtn">Browse Files</button>
+                    <p>Supported formats: MP4, MOV, AVI, MKV</p>
+                    <input type="file" id="fileInput" accept="video/*" hidden>
+                </div>
+                
+                <div class="language-selector">
+                    <label for="language">Select Caption Language:</label>
+                    <select id="language">
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="zh">Chinese</option>
+                        <option value="ja">Japanese</option>
+                        <option value="hi">Hindi</option>
+                        <option value="ar">Arabic</option>
+                    </select>
+                </div>
+                
+                <button class="btn" id="generateBtn" disabled>Generate Captions</button>
+            </div>
+            
+            <div class="preview-section">
+                <h2 class="section-title">Preview & Results</h2>
+                <div class="video-preview" id="videoPreview">
+                    <p style="text-align: center; padding: 40px;">Video preview will appear here</p>
+                </div>
+                
+                <div class="progress-container">
+                    <h3>Processing Status</h3>
+                    <div class="progress-bar">
+                        <div class="progress" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>0%</span>
+                        <span id="statusText">Waiting for video...</span>
+                    </div>
+                </div>
+                
+                <div class="caption-result">
+                    <h3>Generated Caption</h3>
+                    <p class="caption-text" id="captionText">Captions will appear here after processing...</p>
+                </div>
+                
+                <button class="btn" id="downloadBtn" disabled>Download Captions</button>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-globe"></i>
+                <h3>Multi-Language</h3>
+                <p>Generate captions in over 20 languages with accurate translation</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h3>Fast Processing</h3>
+                <p>Leverage AI technology to generate captions quickly and accurately</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-download"></i>
+                <h3>Easy Export</h3>
+                <p>Download captions in SRT, VTT, or TXT format for any platform</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>VideoCaptionPro &copy; 2023 - AI-Powered Video Captioning Solution</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const browseBtn = document.getElementById('browseBtn');
+            const generateBtn = document.getElementById('generateBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const videoPreview = document.getElementById('videoPreview');
+            const progressBar = document.getElementById('progressBar');
+            const statusText = document.getElementById('statusText');
+            const captionText = document.getElementById('captionText');
+            const languageSelect = document.getElementById('language');
+            
+            let currentFile = null;
+            
+            // Event listeners
+            browseBtn.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', function(e) {
+                if (this.files && this.files[0]) {
+                    handleFile(this.files[0]);
+                }
+            });
+            
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#fdbb2d';
+            });
+            
+            dropZone.addEventListener('dragleave', function() {
+                this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            });
+            
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            generateBtn.addEventListener('click', generateCaptions);
+            downloadBtn.addEventListener('click', downloadCaptions);
+            
+            // Handle the uploaded file
+            function handleFile(file) {
+                if (!file.type.startsWith('video/')) {
+                    alert('Please upload a video file');
+                    return;
+                }
+                
+                currentFile = file;
+                
+                // Enable generate button
+                generateBtn.disabled = false;
+                
+                // Show video preview
+                const videoURL = URL.createObjectURL(file);
+                videoPreview.innerHTML = `
+                    <video controls>
+                        <source src="${videoURL}" type="${file.type}">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
+                
+                // Update status
+                statusText.textContent = 'Ready to generate captions';
+                progressBar.style.width = '0%';
+                document.querySelector('.progress-text span').textContent = '0%';
+            }
+            
+            // Generate captions (simulated)
+            function generateCaptions() {
+                if (!currentFile) return;
+                
+                // Disable generate button during processing
+                generateBtn.disabled = true;
+                downloadBtn.disabled = true;
+                
+                // Reset progress
+                progressBar.style.width = '0%';
+                document.querySelector('.progress-text span').textContent = '0%';
+                
+                // Simulate processing steps
+                const steps = [
+                    {text: 'Analyzing video...', width: 20},
+                    {text: 'Extracting audio...', width: 40},
+                    {text: 'Transcribing content...', width: 60},
+                    {text: 'Translating to selected language...', width: 80},
+                    {text: 'Generating captions...', width: 100}
+                ];
+                
+                let step = 0;
+                
+                const processInterval = setInterval(() => {
+                    if (step < steps.length) {
+                        statusText.textContent = steps[step].text;
+                        progressBar.style.width = steps[step].width + '%';
+                        document.querySelector('.progress-text span').textContent = steps[step].width + '%';
+                        step++;
+                    } else {
+                        clearInterval(processInterval);
+                        
+                        // Show completion
+                        statusText.textContent = 'Complete!';
+                        
+                        // Enable download button
+                        downloadBtn.disabled = false;
+                        
+                        // Show sample captions based on selected language
+                        showSampleCaptions();
+                    }
+                }, 1000);
+            }
+            
+            // Show sample captions based on selected language
+            function showSampleCaptions() {
+                const language = languageSelect.value;
+                let sampleText = '';
+                
+                switch(language) {
+                    case 'es':
+                        sampleText = '¡Hola! Bienvenido a nuestro video. Hoy estamos explorando las características sorprendentes de nuestro generador de subtítulos automáticos. ¡Es rápido, preciso y soporta múltiples idiomas!';
+                        break;
+                    case 'fr':
+                        sampleText = 'Bonjour! Bienvenue dans notre vidéo. Aujourd\'hui, nous explorons les caractéristiques étonnantes de notre générateur de sous-titres automatiques. Il est rapide, précis et prend en charge plusieurs langues!';
+                        break;
+                    case 'de':
+                        sampleText = 'Hallo! Willkommen zu unserem Video. Heute erkunden wir die erstaunlichen Funktionen unseres automatischen Untertitelsgenerators. Es ist schnell, genau und unterstützt mehrere Sprachen!';
+                        break;
+                    case 'zh':
+                        sampleText = '你好！欢迎观看我们的视频。今天我们将探索我们的自动字幕生成器的惊人特性。它快速、准确，并支持多种语言！';
+                        break;
+                    case 'ja':
+                        sampleText = 'こんにちは！私たちの動画へようこそ。今日は自動字幕生成の驚くべき機能について探求します。高速で正確、かつ多言語対応です！';
+                        break;
+                    case 'hi':
+                        sampleText = 'नमस्ते! हमारे वीडियो में आपका स्वागत है। आज हम हमारे ऑटो कैप्शन जनरेटर की अद्भुत सुविधाओं का अन्वेषण कर रहे हैं। यह तेज़, सटीक और कई भाषाओं का समर्थन करता है!';
+                        break;
+                    case 'ar':
+                        sampleText = 'مرحبًا! أهلاً بك في الفيديو الخاص بنا. اليوم نحن نستكشف الميزات المذهلة لمنشئ الترجمة التلقائية الخاص بنا. إنه سريع ودقيق ويدعم لغات متعددة!';
+                        break;
+                    default:
+                        sampleText = 'Hello! Welcome to our video. Today we\'re exploring the amazing features of our auto caption generator. It\'s fast, accurate, and supports multiple languages! This technology makes video content accessible to everyone regardless of language barriers.';
+                }
+                
+                captionText.textContent = sampleText;
+            }
+            
+            // Download captions
+            function downloadCaptions() {
+                const captionContent = captionText.textContent;
+                const blob = new Blob([captionContent], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'captions.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            
+            // Initialize language selection
+            languageSelect.addEventListener('change', function() {
+                if (captionText.textContent !== 'Captions will appear here after processing...') {
+                    showSampleCaptions();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
